@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 import pandas as pd
 import psycopg2 
 from psycopg2 import sql
+from sqlalchemy import create_engine
+
 
 load_dotenv()
 
@@ -41,7 +43,6 @@ def process_csv_file(csv_path, connection, batch_size=10000):
             cursor.execute(drop_query)
             connection.commit()
             
-        from sqlalchemy import create_engine
         
         engine = create_engine(f"postgresql+psycopg2://{os.getenv('PSQL_USER')}:{os.getenv('PSQL_PASSWORD')}@{os.getenv('PSQL_HOST')}:5432/{os.getenv('PSQL_DATABASE')}")
         

@@ -35,3 +35,15 @@ CREATE TABLE gold.fact_table (
         FOREIGN KEY (recourse_id) 
         REFERENCES gold.dim_recourse(recourse_id)
 );
+
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_fact_location_id 
+ON gold.fact_table(location_id);
+
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_fact_recourse_id
+ON gold.fact_table(recourse_id);
+
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_fact_year 
+ON gold.fact_table(year);
+
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_dim_location_city 
+ON gold.dim_location(city);
