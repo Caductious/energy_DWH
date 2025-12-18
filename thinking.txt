@@ -1,0 +1,14 @@
+net_manager : 72
+purchase_area : 75
+street : 75
+zipcode_from : 75
+zipcode_to : 75
+city : 75
+num_connections : 75
+delivery_perc : 75
+perc_of_active_connections : 75
+type_conn_perc : 75
+type_of_connection : 75
+annual_consume : 75
+annual_consume_lowtarif_perc : 66
+smartmeter_perc : 66

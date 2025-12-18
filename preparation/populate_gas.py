@@ -1,12 +1,14 @@
 import os
+import sys
 
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+import secret
 import pandas as pd
 import numpy as np
 import mysql.connector
 from mysql.connector import Error
 from progress.bar import IncrementalBar
-
-import secret
 
 #переименовываем неправильно названные файлы
 def rename_files(path):
@@ -22,7 +24,7 @@ def rename_files(path):
 #Загрузка и обработка датафрейма
 def load_dataframes(path):
     df_list=[]
-    for filename in os.listdir('./Gas'):
+    for filename in os.listdir('../Gas'):
         df = pd.read_csv(f"./Gas/{filename}")
         df['year'] = int(filename[-8:-4])
         df_list.append(df)
@@ -35,7 +37,7 @@ def load_dataframes(path):
     df['net_manager_id'] = df['net_manager'].replace(id_dict)
     return [df, id_dict]
 
-#Pfvtyf NaN на None
+#Изменяем NaN на None
 def clean_nan_values(value):
     if pd.isna(value):
         return None
@@ -167,7 +169,7 @@ def create_database(df, manager_dict):
             print('Перенос данных завершённ, соединение закрыто')
 
         
-path = './Gas/'
+path = '../Gas/'
 rename_files(path)
 df, id_dict = load_dataframes(path)
 create_database(df, id_dict)
