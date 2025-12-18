@@ -2,4 +2,4 @@
 __pycache__
 Electricity
 Gas
-secret.py
+.env

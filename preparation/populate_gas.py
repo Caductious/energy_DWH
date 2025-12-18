@@ -1,14 +1,13 @@
 import os
-import sys
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-import secret
 import pandas as pd
 import numpy as np
 import mysql.connector
 from mysql.connector import Error
 from progress.bar import IncrementalBar
+from dotenv import load_dotenv
+
+load_dotenv()
 
 #переименовываем неправильно названные файлы
 def rename_files(path):
@@ -24,7 +23,7 @@ def rename_files(path):
 #Загрузка и обработка датафрейма
 def load_dataframes(path):
     df_list=[]
-    for filename in os.listdir('../Gas'):
+    for filename in os.listdir('./Gas'):
         df = pd.read_csv(f"./Gas/{filename}")
         df['year'] = int(filename[-8:-4])
         df_list.append(df)
@@ -47,10 +46,10 @@ def clean_nan_values(value):
 def create_database(df, manager_dict):
     try:
         connection = mysql.connector.connect(
-            host=secret.host,
-            user=secret.user,
-            password=secret.password,
-            database=secret.database,
+            host=os.getenv('MYSQL_HOST'),
+            database=os.getenv('MYSQL_DATABASE'),
+            user=os.getenv('MYSQL_USER'),
+            password=os.getenv('MYSQL_PASSWORD'),
             auth_plugin='mysql_native_password'
             )
         
@@ -169,7 +168,7 @@ def create_database(df, manager_dict):
             print('Перенос данных завершённ, соединение закрыто')
 
         
-path = '../Gas/'
+path = 'Gas/'
 rename_files(path)
 df, id_dict = load_dataframes(path)
 create_database(df, id_dict)

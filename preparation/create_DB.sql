@@ -6,7 +6,6 @@ CREATE SCHEMA IF NOT EXISTS bronze;
 CREATE SCHEMA IF NOT EXISTS silver;
 CREATE SCHEMA IF NOT EXISTS gold;
 
---Измените пароль в данной строке на свой--
 CREATE USER etl_user WITH PASSWORD 'your_password';
 
 GRANT CONNECT ON DATABASE energy_data_vault TO etl_user;
